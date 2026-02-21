@@ -15,10 +15,7 @@ services:
       - key: MAX_FILE_SIZE_BYTES
         value: 15728640
       - key: FRONTEND_ORIGIN
-        fromService:
-          type: web
-          name: research-tool-frontend
-          envVarKey: RENDER_EXTERNAL_URL
+        value: https://research-tool-chi-nine.vercel.app
       - key: CLOUDINARY_CLOUD_NAME
         sync: false
       - key: CLOUDINARY_API_KEY
@@ -49,22 +46,3 @@ services:
         value: false
       - key: ANALYZER_RETRY_ON_UNDERFILLED
         value: false
-
-  - type: web
-    name: research-tool-frontend
-    runtime: static
-    rootDir: frontend
-    buildCommand: npm install && npm run build
-    staticPublishPath: ./frontend/dist
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-    envVars:
-      - key: NODE_VERSION
-        value: 20
-      - key: VITE_API_BASE_URL
-        fromService:
-          type: web
-          name: research-tool-backend
-          envVarKey: RENDER_EXTERNAL_URL
