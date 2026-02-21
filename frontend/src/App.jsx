@@ -1,6 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+const API_BASE =
+  import.meta.env.VITE_API_BASE_URL ||
+  (window.location.hostname === "localhost"
+    ? "http://localhost:3000"
+    : "https://research-tool-backend-1uxu.onrender.com");
 
 export default function App() {
   const [files, setFiles] = useState([]);
